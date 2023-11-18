@@ -12,7 +12,7 @@ public class Meteor : MonoBehaviour
 
         logicManager = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicManager>();
         var rigidBody = gameObject.GetComponent<Rigidbody>();
-        rigidBody.AddForce(transform.up * -(1000f));
+        rigidBody.AddForce(transform.up * -600f);
     }
     // Update is called once per frame
     void Update()
