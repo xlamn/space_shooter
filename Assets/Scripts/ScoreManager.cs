@@ -72,13 +72,4 @@ public class ScoreManager : MonoBehaviour
         // Save the updated high scores list
         SaveHighScores();
     }
-
-    public void DisplayLeaderboard()
-    {
-        // Example: Display the current leaderboard in the console
-        foreach (var entry in scoreData.highScores)
-        {
-            Debug.Log($"Score: {entry.score}, Timestamp: {entry.timestamp}");
-        }
-    }
 }

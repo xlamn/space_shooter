@@ -16,25 +16,15 @@ public class PlayerController : MonoBehaviour
     // Logic
     public LogicManager logicManager;
 
-    // Bullet
-    private List<GameObject> bullets = new List<GameObject>();
-    public GameObject bullet;
-    private float _lastBulletSpawnTime = 0;
-    private readonly float _spawnTime = 0.2f;
+    // Bullet Spawner
+    public BulletSpawner bulletSpawner;
 
     // Start is called before the first frame update
     void Start()
     {
         logicManager = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicManager>();
+        bulletSpawner = GameObject.Find("BulletSpawner").GetComponent<BulletSpawner>();
         _rigidBody = gameObject.GetComponent<Rigidbody>();
-
-        for (int i = 0; i < 20; i++)
-        {
-            bullets.Add(Instantiate(bullet, Vector3.zero, Quaternion.identity));
-            bullet.SetActive(false);
-            bullets.Add(bullet);
-        }
-
     }
 
     // Update is called once per frame
@@ -53,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
-            SpawnBullet();
+            bulletSpawner.SpawnBullet(gameObject);
         }
     }
 
@@ -65,7 +55,6 @@ public class PlayerController : MonoBehaviour
             logicManager.saveScore();
         }
     }
-
 
     private void CrossBorder()
     {
@@ -85,34 +74,5 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, logicManager.maxHeight, transform.position.z);
         }
-    }
-
-    private void SpawnBullet()
-    {
-        if (Time.time - _lastBulletSpawnTime > _spawnTime)
-        {
-            // Spawn a bullet
-            GameObject bullet = GetInactiveBullet();
-            if (bullet != null)
-            {
-                bullet.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z); ;
-                bullet.transform.rotation = transform.rotation * Quaternion.Euler(0, 0, -90);
-                bullet.SetActive(true);
-            }
-
-            _lastBulletSpawnTime = Time.time;
-        }
-    }
-
-    private GameObject GetInactiveBullet()
-    {
-        foreach (var bullet in bullets)
-        {
-            if (!bullet.activeSelf)
-            {
-                return bullet;
-            }
-        }
-        return null;
     }
 }
