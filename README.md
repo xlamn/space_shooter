@@ -2,6 +2,11 @@
 
 A simple 2D game created in Unity for the course "Virtual Intelligent Systems" at UPM.
 
+## Developers
+
+- Tuan Lam Nguyen
+- Xiaolin Jiang
+
 ## Play Instructions
 
 After starting the game from the intro the space ship can be navigated with the following keys.
